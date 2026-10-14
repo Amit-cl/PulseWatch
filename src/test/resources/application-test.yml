@@ -1,0 +1,22 @@
+# Test profile — uses H2 in-memory for fast unit tests.
+# Integration tests with Testcontainers will use real PostgreSQL.
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:pulsewatch_test;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false   # H2 doesn't support all PostgreSQL syntax
+
+pulsewatch:
+  jwt:
+    secret: test-secret-key-minimum-32-characters-long!!
+    expiration-ms: 3600000
